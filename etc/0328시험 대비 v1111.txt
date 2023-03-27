@@ -1,0 +1,102 @@
+- 평가자체크리스트
+
+1. mybatis-config.xml 이거 잘보자
+-setttings
+-typeAliases
+-mapper namespace
+
+mybatis-config.xml
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	-> 대문자 NULL 써야함 소문자 null 안됌
+	
+	<typeAliases>
+		<typeAlias type="com.kh.spring.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.spring.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.spring.board.model.vo.Reply" alias="Reply"/>	
+	</typeAliases>
+	
+	-> 대소문자 등
+	
+	<mappers>
+	 	<mapper resource="/mappers/member-mapper.xml"/>
+	 	<mapper resource="/mappers/board-mapper.xml"/>
+	 </mappers>
+	 
+	 -> namespace
+	 
+2. 쿼리 -> 동적으로
+
+3.
+
+	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+	 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+	 	<property name="username" value="spring"/>
+	 	<property name="password" value="spring"/>
+	 </bean>
+	 
+	 쓰는거
+	 
+	 destroy-method 뭔가 
+	 
+	 
+-- 서술형
+
+1. mapper에 namespace 가 뭐냐
+
+2. environment : mybatis에서 연동할 DB정보들을 등록하는 영역
+
+3. dataSource는 POOLED와 UNPOOLED
+
+4. openSession()
+
+5. framework가 뭐냐,,
+
+6. 프레임 워크 종류 : 영속성(주로 db) => mybatis
+
+7. mybatis 쿼리 동적 => if, choose ...
+
+8. select문 실행시 resultType, resultMap 차이점
+8-1. DML문 resultXXX 없는이유 => 자동으로 리턴해줌
+
+9. selectOne(), selectList() 차이
+
+
+	<!-- * environment : mybatis에서 연동할 DB정보들을 등록하는 영역/ 예전에 driver.properties 에서 썼던 것들. 디비 여러개도 등록 가능 -->
+	<environments default="development">
+	
+	* transactionManager는 JDBC MANAGED 둘 중 하나를 선택할 수 있음
+	- JDBC : 트랜젝션을 내가 직접 관리 하겠다 (수동 commit)
+	- MANAGED : 트랜젝션에 대해서 어떠한 영향도 행사하지 않겠다. (자동 commit)
+
+	
+	* dataSource는 POOLED와 UNPOOLED 둘 중 하나 선택할 수 있음 (ConnectionPool 사용여부)
+				
+	>> ConnectionPool : Connection 객체를 담아둘 수 있는 영역 (커넥션 수영장?)
+					한 번 사용된 Connection 객체를 담아두면 재사용해서 쓸 수 있음
+					
+	- POOLED : 사용하겠다.
+	- UNPOOLED : 사용하지 않겠다.
+	
+	sqlSession = new SqlSessionFactoryBuilder().build(stream).openSession();
+	// openSession() : 기본값 false
+	// openSession(boolean autocommit) : 자동 커밋 여부 (true면 하겠다, false면 안하겠다)
+	// => 개발자가 autoCommit을 직접 설정함
+	
+	* SELECT문
+	<select id="각 sql 식별자" [parameterType="전달받은 자바타입(vo일 경우 = 풀클래스명 | 별칭)"
+							 resultType|resultMap = "결과반환타입"]>
+							 
+	얘는 실행했을 때의 결과가 매번 달라짐..
+	count(*) => 전체행수 : int
+	USER_NAME => 이름 : String
+	한 행 조회 => 멤버객체
+	여러행 조회 => ArrayList
+	
+	? 대신에 해당 sql문에 전달된 객체로부터 값을 꺼낼때 #{필드명 또는 변수명 또는 키값}
+	
+	</select>
