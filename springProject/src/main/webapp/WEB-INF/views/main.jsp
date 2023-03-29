@@ -28,7 +28,7 @@
 	<jsp:include page="common/header.jsp"/>
 	
 	<div style="height:600px" align="center">
-	
+	<!-- 
 	<div id="map" style="width: 800px; height: 800px; border: 1px black solid;"></div>
 
 
@@ -130,7 +130,7 @@
                 })
 
         })
-
+		-->
         
     </script>
 	
