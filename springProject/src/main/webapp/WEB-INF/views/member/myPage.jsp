@@ -22,7 +22,7 @@
                <input type="text" class="form-control" id="userId" name="userId" value="${loginUser.userId }" readonly><br>
                
                <label for="userName">* Name :</label>
-               <input type="text" class="form-control" id="userName" name="userName" value="${loginUser.userName }" readonly><br>
+               <input type="text" class="form-control" id="userName" name="userName" value="${loginUser.userName }" required><br>
                
                <label for="email"> &nbsp; Email :</label>
                <input type="email" class="form-control" id="email" name="email" value="${loginUser.email }"><br>
@@ -37,9 +37,9 @@
                <input type="text" class="form-control" id="address" name="address" value="${loginUser.address }"><br>
                
                <label for=""> &nbsp; Gender : </label> &nbsp;&nbsp;
-               <input type="radio" name="" id="Male" value="M">
+               <input type="radio" name="gender" id="Male" value="M">
                <label for="Male">남자</label> &nbsp;&nbsp;
-               <input type="radio" name="" id="Female" value="F">
+               <input type="radio" name="gender" id="Female" value="F">
                <label for="Female">여자</label><br>
                
                
@@ -52,12 +52,19 @@
        </form>
        
        <script>
+       /*
             $(function(){
                 if("${loginUser.gender}" == "M"){
-                    $('#Male').attr("checked", "checked");
+                   	$('#Male').attr("checked", "checked");
                 }else{
                     $('#Female').attr("checked", "checked");
                 }
+            })
+       */
+            $(function(){
+            	if("${loginUser.gender}" != ""){
+            		$("input[value=${loginUser.gender}]").attr("checked", true);
+            	}
             })
        </script>
 
@@ -84,9 +91,10 @@
                                정말로 탈퇴 하시겠습니까?
                </b>
 
-               <form action="" method="post">
+               <form action="delete.me" method="post">
                        비밀번호 : 
                    <input type="password" name="userPwd" required>
+                   <input type="hidden" name="userId" value="${loginUser.userId }">
                    <button type="submit" class="btn btn-danger">탈퇴하기</button>
                </form>
 
