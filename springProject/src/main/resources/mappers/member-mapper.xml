@@ -101,4 +101,13 @@
 		 where user_id = #{userId}
 	</update>
 	
+	<update id="updatePassword">
+		update
+			   member
+		   set user_pwd = #{upEncPwd}
+		 where user_id = #{userId}
+	</update>
+	
+	
+	
 </mapper>

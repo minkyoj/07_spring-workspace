@@ -1,5 +1,7 @@
 package com.kh.spring.member.model.service;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +58,13 @@ public class MemberServiceImpl implements MemberService{
 	public int idCheck(String checkId) {
 		return 0;
 	}
+
+	public int updatePassword(HashMap<String, String> updateMap) {
+		
+		int result = mDao.updatePassword(sqlSession, updateMap);
+		
+		return result;
+	}
+
 
 }

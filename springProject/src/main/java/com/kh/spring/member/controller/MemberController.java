@@ -1,5 +1,7 @@
 package com.kh.spring.member.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -315,6 +317,41 @@ public class MemberController {
 			session.setAttribute("alertMsg", "비밀번호를 잘못입력하셨습니다.");
 			return "redirect:/";
 		}
+		
+	}
+	
+	@RequestMapping("updatePwd.me")
+	public String updatePassword(String userPwd, String userId, HttpSession session, String updatePwd, String checkPwd, Model model) {
+		
+		// 암호문 비번
+		String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
+		
+		// 바꿀 비번 암호화
+		String upEncPwd = bcryptPasswordEncoder.encode(updatePwd);
+		
+		HashMap<String, String> updateMap = new HashMap<String, String>();
+		
+		updateMap.put("userId", userId);
+		updateMap.put("upEncPwd", upEncPwd);
+		
+		if(bcryptPasswordEncoder.matches(userPwd, encPwd)) {
+			
+			int result = mService.updatePassword(updateMap);
+			
+			if(result > 0) {
+				session.setAttribute("alertMsg", "비밀번호 수정 성공");
+				return "redirect:myPage.me";
+			}else {
+				model.addAttribute("alertMsg", "비밀번호 수정 실패");
+				return "common/errorPage";
+			}
+			
+		}else { // 현재비번틀림
+			session.setAttribute("alertMsg", "비밀번호를 잘못입력하셨습니다.");
+			return "redirect:/";
+		}
+		
+		
 		
 	}
 	

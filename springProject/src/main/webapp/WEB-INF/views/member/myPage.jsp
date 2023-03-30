@@ -46,6 +46,7 @@
            </div>
            <br>
            <div class="btns" align="center">
+           	   <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#pwUpdateForm">비밀번호 수정</button>
                <button type="submit" class="btn btn-primary">수정하기</button>
                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
            </div>
@@ -103,6 +104,47 @@
        </div>
    </div>
 </div>
+
+<!-- 비밀번호 수정 클릭시 보여질 Modal -->
+<div class="modal" id="pwUpdateForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">회원탈퇴</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body" align="center">
+            
+                <b>
+                                비밀번호 변경 정보를 입력해주세요. <br><br><br>
+                </b>
+ 
+                <form action="updatePwd.me" method="post">
+                        현재 비밀번호 : &emsp;&emsp;&emsp;&emsp;
+                    <input type="password" name="userPwd" required> <br><br>
+                        변경할 비밀번호 : &emsp;&emsp;&emsp;
+                    <input type="password" name="updatePwd" required> <br><br>
+                        변경할 비밀번호 확인 :&emsp;
+                    <input type="password" name="checkPwd" required> <br><br>
+                    <input type="hidden" name="userId" value="${loginUser.userId }"> 
+                    <button type="submit" class="btn btn-danger">수정하기</button>
+                </form>
+ 
+            </div>
+            
+        </div>
+    </div>
+ </div>
+
+ <script>
+    $(function(){
+        
+    })
+ </script>
 
 <!-- 이쪽에 푸터바 포함할꺼임 -->
 <jsp:include page="../common/footer.jsp"/>
