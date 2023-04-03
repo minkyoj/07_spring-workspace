@@ -54,7 +54,7 @@
             <br>
                 <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
                 <c:if test="${not empty loginUser }">
-                <a class="btn btn-secondary btn-sm" style="float:right" href="enrollForm.bo">글쓰기</a>
+                	<a class="btn btn-secondary btn-sm" style="float:right" href="enrollForm.bo">글쓰기</a>
             	</c:if>
             <br></br>
             <table id="boardList" class="table table-hover" align="center">
@@ -86,6 +86,14 @@
                 </tbody>
             </table>
             <br>
+            
+            <script>
+            	$(function(){
+            		$("#boardList>tbody>tr").click(function(){
+            			location.href='detail.bo?bno=' + $(this).children(".bno").text();
+            		})
+            	})
+            </script>
         
             
             <div id="pagingArea">
