@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int idCheck(String checkId) {
-		return 0;
+		return mDao.idCheck(sqlSession, checkId);
 	}
 
 	public int updatePassword(HashMap<String, String> updateMap) {
@@ -65,6 +65,6 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
-
+	
 
 }
