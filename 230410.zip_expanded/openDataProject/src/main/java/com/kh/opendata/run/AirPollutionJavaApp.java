@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.opendata.model.vo.AirVO;
 
+
 public class AirPollutionJavaApp {
 
 	// 발급받은 인증키 정보 변수에 담아두기

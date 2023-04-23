@@ -50,33 +50,32 @@ public class APIController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="comp.do", produces="application/json; charset=utf-8")
-	public String roadList(int crno) throws IOException {
-		String url = "https://apis.data.go.kr/1160100/service/GetCorpBasicInfoService_V2/getAffiliate_V2";
-		url += "?serviceKey=" + servicekey;
-		url += "&pageNo=1";
-		url += "&numOfRows=10";
-		url += "&crno=" + crno;
-		url += "&returnType=json";
-		
-		URL requestUrl = new URL(url);
-		
-		HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
-		
-		urlConnection.setRequestMethod("GET");
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-		
-		String line;
-		String responseText = "";
-		
-		while((line = br.readLine())!= null) {
-			responseText += line;
-		}
-		
-		br.close();
-		urlConnection.disconnect();
-		
-		return responseText;
-	}
+	   @RequestMapping(value="disaster.do", produces="text/xml; charset=utf-8")
+	   public String disasterShelter() throws IOException {    // 부모 타입인 IOException으로 예외처리 // 127 line
+	      
+	      String url = "https://apis.data.go.kr/1741000/TsunamiShelter3/getTsunamiShelter1List";
+	      url += "?serviceKey=" + servicekey;
+	      url += "&type=xml";
+	      url += "&pageNo=1";
+	      url += "&numOfRows=50";
+	      
+	      URL requestUrl = new URL(url);
+	      HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
+	      
+	      urlConnection.setRequestMethod("GET");
+	      
+	      BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+	      
+	      String line;
+	      String requestText = "";
+	      
+	      while((line = br.readLine()) != null) {
+	         requestText += line;
+	      }
+	      
+	      br.close();
+	      urlConnection.disconnect();
+	      
+	      return requestText;
+	   }
 }
